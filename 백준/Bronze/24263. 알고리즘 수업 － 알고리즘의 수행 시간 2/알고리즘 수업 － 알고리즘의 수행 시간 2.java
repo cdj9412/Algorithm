@@ -4,30 +4,11 @@ import java.io.InputStreamReader;
 import java.util.Random;
 
 public class Main {
-
-    public static int MenOfPassion(int[] A, int n){
-        int sum = 0;
-        // 1부터 n 까지 이지만 0부터 n-1과 동일하니 이대로 사용
-        for(int i = 0; i < n; i++){
-            sum += A[i]; //코드 1
-        }
-        return sum;
-    }
-
     public static void main(String args[]) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         int n = Integer.parseInt(br.readLine());
 
-        // MenOfPassion 코드에 사용될 임시 배열 A 크기 n으로 초기화
-        int []A = new int[n];
-        // 임시 데이터 입력
-        for (int i = 0; i < n; i++)
-            A[i] = i ;
-
-        int result = MenOfPassion(A, n);
-
-        // 수행 횟수 출력
         System.out.println(n);
 
         // MenOfPassion 의 수행횟수 다항식 표현 시 최고차항 차수
