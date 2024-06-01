@@ -10,7 +10,7 @@ public class Main {
 
         // 제한 조건
         if (longFormName.isEmpty() || longFormName.length() > 100) {
-            System.out.println("잘못된 입력");
+            bw.write("잘못된 입력\n");
             return ;
         }
 
