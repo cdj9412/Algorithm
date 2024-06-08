@@ -1,42 +1,41 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.*;
+import java.util.StringTokenizer;
+
 public class Main {
-    
-    public static void main(String[] args) throws  IOException {
-    
+
+    // 최종 시간 복잡도 : O(logN)
+
+    public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        
-        
-        String [] t = br.readLine().split(" ");
-        long x = Long.parseLong(t[0]);
-        long y = Long.parseLong(t[1]);
-        
-        long rate = y*100/x;
-        
-        if(rate ==100 || rate ==99) {
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        long X = Long.parseLong(st.nextToken());
+        long Y = Long.parseLong(st.nextToken());
+
+        long Z = getPercent(X,Y);
+        // 승률이 99나 100이면 소수점 버리기 때문에 승률이 변하지 않음.
+        if (Z == 99 || Z == 100) {
             System.out.println(-1);
-            return ;
+            return;
         }
-        long start = 1;
-        long end = (int)x;
-        
-        // upper_bound
-        while(start<end) {
-            long mid = (start+end)/2;
-            
-            long tmp_x = x+mid;
-            long tmp_y = y+mid;
-            
-            long change_rate = tmp_y*100 /tmp_x;
-            if(change_rate > rate) {
+        System.out.println(binarySearch(X,Y,Z)); // O(logN)
+    }
+
+    public static long binarySearch(long X, long Y, long target) {
+        long start = 0;
+        long end = X;
+        while (start < end) { //O(logN)
+            long mid = (start + end) / 2;
+            if(getPercent((X + mid),(Y + mid)) > target)
                 end = mid;
-            }
-            else {
-                start = mid+1;
-            }
+            else
+                start = mid + 1;
         }
-        System.out.println(end);
+        return end;
+    }
+
+    public static long getPercent(long X, long Y){
+        return (long)((Y*100) / X) ;
     }
 }
