@@ -37,12 +37,13 @@ public class Main {
             }
         }
 
-        System.out.println(BFS()-1);
+        System.out.println(BFS());
     }
 
     public static int BFS() {
-
         int maxDistance = 0;
+        // 거리 저장용 배열
+        int[][] distances = new int[N][M];
 
         while (!sharkNodes.isEmpty()) {
             SharkNode current = sharkNodes.poll();
@@ -55,13 +56,12 @@ public class Main {
                 // 인덱스를 넘으면 넘기고
                 if (checkOverFlow(nextRow, nextCol)) continue ;
 
-                // 1보다 크면 이미 상어가 있거나, 현재 값보다 큰 상태이므로 넘기고
-                if(space[nextRow][nextCol] >= 1) continue;
-
-                space[nextRow][nextCol] = space[current.row][current.col] + 1;
-                sharkNodes.add(new SharkNode(nextRow, nextCol));
-
-                maxDistance = Math.max(maxDistance, space[nextRow][nextCol]);
+                // 아직 방문하지 않은 칸이면
+                if (space[nextRow][nextCol] == 0 && distances[nextRow][nextCol] == 0) {
+                    distances[nextRow][nextCol] = distances[current.row][current.col] + 1;
+                    sharkNodes.offer(new SharkNode(nextRow, nextCol));
+                    maxDistance = Math.max(maxDistance, distances[nextRow][nextCol]);
+                }
             }
         }
         return maxDistance;
